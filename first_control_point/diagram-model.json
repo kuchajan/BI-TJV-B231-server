@@ -1,0 +1,940 @@
+{
+  "entities": [
+    {
+      "name": "Adress",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "city",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "street",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "number",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "state",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 312,
+        "y": 57.44999694824219,
+        "width": 147,
+        "height": 102.0999755859375
+      }
+    },
+    {
+      "name": "Car",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "registration_plate",
+          "primary": false,
+          "unique": true,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "color",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "availability",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 556,
+        "y": 218.11666361490887,
+        "width": 146,
+        "height": 110
+      }
+    },
+    {
+      "name": "Employee",
+      "parent": null,
+      "attr": [],
+      "transform": {
+        "x": 113,
+        "y": 55.44999694824219,
+        "width": 105,
+        "height": 89
+      }
+    },
+    {
+      "name": "Feature",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "name",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "price_multiplier",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 813,
+        "y": 235.0500030517578,
+        "width": 154.33334350585938,
+        "height": 74.066650390625
+      }
+    },
+    {
+      "name": "Make",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "name",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "base_rent_price",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 563,
+        "y": 408.4499969482422,
+        "width": 142.79998779296875,
+        "height": 74
+      }
+    },
+    {
+      "name": "Manufacturer",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "name",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 374,
+        "y": 409.4499969482422,
+        "width": 90,
+        "height": 70
+      }
+    },
+    {
+      "name": "Reservation",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "time_start",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "time_end",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 353,
+        "y": 234.4499969482422,
+        "width": 90,
+        "height": 74.06666564941406
+      }
+    },
+    {
+      "name": "Role",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "name",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": -66,
+        "y": 68.44999694824219,
+        "width": 65.56666564941406,
+        "height": 60.04998779296875
+      }
+    },
+    {
+      "name": "Session",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "expiration",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": -83,
+        "y": 236.0500030517578,
+        "width": 90,
+        "height": 70
+      }
+    },
+    {
+      "name": "Store",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "name",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 606,
+        "y": 68.44999694824219,
+        "width": 71,
+        "height": 64
+      }
+    },
+    {
+      "name": "Type",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "name",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 815,
+        "y": 415.4499969482422,
+        "width": 85,
+        "height": 60.04998779296875
+      }
+    },
+    {
+      "name": "User",
+      "parent": null,
+      "attr": [
+        {
+          "name": "id",
+          "primary": true,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "email",
+          "primary": false,
+          "unique": true,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "salt",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "hash",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "name",
+          "primary": false,
+          "unique": false,
+          "nullable": false,
+          "type": null
+        },
+        {
+          "name": "phone_number",
+          "primary": false,
+          "unique": false,
+          "nullable": true,
+          "type": null
+        }
+      ],
+      "transform": {
+        "x": 107,
+        "y": 212.4499969482422,
+        "width": 141,
+        "height": 116.11669921875
+      }
+    }
+  ],
+  "relations": [
+    [
+      {
+        "entity": "Adress",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 385.5,
+            "y": 159.5499725341797,
+            "edge": 2
+          },
+          "points": [
+            {
+              "x": 391.75,
+              "y": 196.99998474121094
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Reservation",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 0,
+        "xor": null,
+        "name": "to be delivered to",
+        "transform": {
+          "anchor": {
+            "x": 398,
+            "y": 234.4499969482422,
+            "edge": 0
+          },
+          "points": [
+            {
+              "x": 391.75,
+              "y": 196.99998474121094
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Adress",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 459,
+            "y": 101.49165344238281,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 532.5,
+              "y": 100.9708251953125
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Store",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": "is at",
+        "transform": {
+          "anchor": {
+            "x": 606,
+            "y": 100.44999694824219,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 532.5,
+              "y": 100.9708251953125
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Car",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": "is of",
+        "transform": {
+          "anchor": {
+            "x": 627,
+            "y": 328.1166636149089,
+            "edge": 2
+          },
+          "points": [
+            {
+              "x": 617.5,
+              "y": 368.28333028157556
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Make",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 608,
+            "y": 408.4499969482422,
+            "edge": 0
+          },
+          "points": [
+            {
+              "x": 617.5,
+              "y": 368.28333028157556
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Car",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 629,
+            "y": 218.11666361490887,
+            "edge": 0
+          },
+          "points": [
+            {
+              "x": 635.25,
+              "y": 175.28333028157553
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Store",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": "has",
+        "transform": {
+          "anchor": {
+            "x": 641.5,
+            "y": 132.4499969482422,
+            "edge": 2
+          },
+          "points": [
+            {
+              "x": 635.25,
+              "y": 175.28333028157553
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Car",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 0,
+        "xor": null,
+        "name": "has",
+        "transform": {
+          "anchor": {
+            "x": 702,
+            "y": 273.1166636149089,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 757.5,
+              "y": 272.5999959309896
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Feature",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 0,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 813,
+            "y": 272.0833282470703,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 757.5,
+              "y": 272.5999959309896
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Car",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": "has",
+        "transform": {
+          "anchor": {
+            "x": 556,
+            "y": 273.1166636149089,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 499.5,
+              "y": 272.2999966939291
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Reservation",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 443,
+            "y": 271.4833297729492,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 499.5,
+              "y": 272.2999966939291
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Employee",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": "is of",
+        "transform": {
+          "anchor": {
+            "x": 113,
+            "y": 99.94999694824219,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 56.28333282470703,
+              "y": 99.21249389648438
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Role",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": -0.4333343505859375,
+            "y": 98.47499084472656,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 56.28333282470703,
+              "y": 99.21249389648438
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Employee",
+        "identifying": true,
+        "optional": false,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 165.5,
+            "y": 144.4499969482422,
+            "edge": 2
+          },
+          "points": [
+            {
+              "x": 171.5,
+              "y": 178.4499969482422
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "User",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": "is",
+        "transform": {
+          "anchor": {
+            "x": 177.5,
+            "y": 212.4499969482422,
+            "edge": 0
+          },
+          "points": [
+            {
+              "x": 171.5,
+              "y": 178.4499969482422
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Make",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": "is of",
+        "transform": {
+          "anchor": {
+            "x": 705.7999877929688,
+            "y": 445.4499969482422,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 760.3999938964844,
+              "y": 445.4624938964844
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Type",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 815,
+            "y": 445.47499084472656,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 760.3999938964844,
+              "y": 445.4624938964844
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Make",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": "made by",
+        "transform": {
+          "anchor": {
+            "x": 563,
+            "y": 445.4499969482422,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 513.5,
+              "y": 444.9499969482422
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "Manufacturer",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 464,
+            "y": 444.4499969482422,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 513.5,
+              "y": 444.9499969482422
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Reservation",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 353,
+            "y": 276.483440130949,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 300.5,
+              "y": 276.9824106586493
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "User",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": "made",
+        "transform": {
+          "anchor": {
+            "x": 248,
+            "y": 277.4813811863496,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 300.5,
+              "y": 276.9824106586493
+            }
+          ],
+          "manual": false
+        }
+      }
+    ],
+    [
+      {
+        "entity": "Session",
+        "identifying": false,
+        "optional": false,
+        "cardinality": 0,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 7,
+            "y": 271.0500030517578,
+            "edge": 1
+          },
+          "points": [
+            {
+              "x": 57,
+              "y": 270.7791748046875
+            }
+          ],
+          "manual": false
+        }
+      },
+      {
+        "entity": "User",
+        "identifying": false,
+        "optional": true,
+        "cardinality": 1,
+        "xor": null,
+        "name": null,
+        "transform": {
+          "anchor": {
+            "x": 107,
+            "y": 270.5083465576172,
+            "edge": 3
+          },
+          "points": [
+            {
+              "x": 57,
+              "y": 270.7791748046875
+            }
+          ],
+          "manual": false
+        }
+      }
+    ]
+  ],
+  "notes": []
+}
