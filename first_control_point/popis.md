@@ -6,8 +6,9 @@
 
 ## Datový model
 
- - viz diagram.png
- - V případě, že diagram.png nelze zobrazit, lze otevřít soubor [diagram-model.json](./diagram-model.json) v aplikaci [BI-DBS Data modeller](https://dbs.fit.cvut.cz/dbsdm/)
+![diagram.png](./diagram.png)
+
+ - V případě, že [diagram.png](./diagram.png) nelze zobrazit, lze otevřít soubor [diagram-model.json](./diagram-model.json) v aplikaci [BI-DBS Data modeller](https://dbs.fit.cvut.cz/dbsdm/)
  - Many-to-many: car-feature
 
 ## Komplexní dotaz navíc
