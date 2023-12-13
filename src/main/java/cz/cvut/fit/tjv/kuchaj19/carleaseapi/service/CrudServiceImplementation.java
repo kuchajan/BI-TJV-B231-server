@@ -25,12 +25,13 @@ public abstract class CrudServiceImplementation<T extends EntityWithId<ID>, ID> 
         return getRepository().findAll();
     }
 
-    /*@Override
+    @Override
     public void update(ID id, T e) {
-        // ?
-        throw new UnsupportedOperationException("Update operation not yet implemented");
-
-    }*/
+        if (!getRepository().existsById(id)) {
+            throw new IllegalArgumentException();
+        }
+        getRepository().save(e);
+    }
 
     @Override
     public void deleteById(ID id) {
