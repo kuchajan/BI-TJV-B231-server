@@ -93,36 +93,10 @@
         }
       ],
       "transform": {
-        "x": 563,
-        "y": 408.4499969482422,
+        "x": 576,
+        "y": 406.4499969482422,
         "width": 142.79998779296875,
         "height": 74
-      }
-    },
-    {
-      "name": "Manufacturer",
-      "parent": null,
-      "attr": [
-        {
-          "name": "id",
-          "primary": true,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        },
-        {
-          "name": "name",
-          "primary": false,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        }
-      ],
-      "transform": {
-        "x": 374,
-        "y": 409.4499969482422,
-        "width": 90,
-        "height": 70
       }
     },
     {
@@ -159,58 +133,6 @@
       }
     },
     {
-      "name": "Session",
-      "parent": null,
-      "attr": [
-        {
-          "name": "id",
-          "primary": true,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        },
-        {
-          "name": "expiration",
-          "primary": false,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        }
-      ],
-      "transform": {
-        "x": -83,
-        "y": 236.0500030517578,
-        "width": 90,
-        "height": 70
-      }
-    },
-    {
-      "name": "Type",
-      "parent": null,
-      "attr": [
-        {
-          "name": "id",
-          "primary": true,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        },
-        {
-          "name": "name",
-          "primary": false,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        }
-      ],
-      "transform": {
-        "x": 815,
-        "y": 415.4499969482422,
-        "width": 85,
-        "height": 60.04998779296875
-      }
-    },
-    {
       "name": "User",
       "parent": null,
       "attr": [
@@ -229,28 +151,7 @@
           "type": null
         },
         {
-          "name": "salt",
-          "primary": false,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        },
-        {
-          "name": "hash",
-          "primary": false,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        },
-        {
           "name": "name",
-          "primary": false,
-          "unique": false,
-          "nullable": false,
-          "type": null
-        },
-        {
-          "name": "is_employee",
           "primary": false,
           "unique": false,
           "nullable": false,
@@ -289,8 +190,8 @@
           },
           "points": [
             {
-              "x": 617.5,
-              "y": 368.28333028157556
+              "x": 624,
+              "y": 367.28333028157556
             }
           ],
           "manual": false
@@ -305,14 +206,14 @@
         "name": null,
         "transform": {
           "anchor": {
-            "x": 608,
-            "y": 408.4499969482422,
+            "x": 621,
+            "y": 406.4499969482422,
             "edge": 0
           },
           "points": [
             {
-              "x": 617.5,
-              "y": 368.28333028157556
+              "x": 624,
+              "y": 367.28333028157556
             }
           ],
           "manual": false
@@ -413,98 +314,6 @@
     ],
     [
       {
-        "entity": "Make",
-        "identifying": false,
-        "optional": false,
-        "cardinality": 0,
-        "xor": null,
-        "name": "is of",
-        "transform": {
-          "anchor": {
-            "x": 705.7999877929688,
-            "y": 445.4499969482422,
-            "edge": 1
-          },
-          "points": [
-            {
-              "x": 760.3999938964844,
-              "y": 445.4624938964844
-            }
-          ],
-          "manual": false
-        }
-      },
-      {
-        "entity": "Type",
-        "identifying": false,
-        "optional": true,
-        "cardinality": 1,
-        "xor": null,
-        "name": null,
-        "transform": {
-          "anchor": {
-            "x": 815,
-            "y": 445.47499084472656,
-            "edge": 3
-          },
-          "points": [
-            {
-              "x": 760.3999938964844,
-              "y": 445.4624938964844
-            }
-          ],
-          "manual": false
-        }
-      }
-    ],
-    [
-      {
-        "entity": "Make",
-        "identifying": false,
-        "optional": false,
-        "cardinality": 0,
-        "xor": null,
-        "name": "made by",
-        "transform": {
-          "anchor": {
-            "x": 563,
-            "y": 445.4499969482422,
-            "edge": 3
-          },
-          "points": [
-            {
-              "x": 513.5,
-              "y": 444.9499969482422
-            }
-          ],
-          "manual": false
-        }
-      },
-      {
-        "entity": "Manufacturer",
-        "identifying": false,
-        "optional": true,
-        "cardinality": 1,
-        "xor": null,
-        "name": null,
-        "transform": {
-          "anchor": {
-            "x": 464,
-            "y": 444.4499969482422,
-            "edge": 1
-          },
-          "points": [
-            {
-              "x": 513.5,
-              "y": 444.9499969482422
-            }
-          ],
-          "manual": false
-        }
-      }
-    ],
-    [
-      {
         "entity": "Reservation",
         "identifying": false,
         "optional": false,
@@ -543,52 +352,6 @@
             {
               "x": 300.5,
               "y": 276.9824106586493
-            }
-          ],
-          "manual": false
-        }
-      }
-    ],
-    [
-      {
-        "entity": "Session",
-        "identifying": false,
-        "optional": false,
-        "cardinality": 0,
-        "xor": null,
-        "name": null,
-        "transform": {
-          "anchor": {
-            "x": 7,
-            "y": 271.0500030517578,
-            "edge": 1
-          },
-          "points": [
-            {
-              "x": 57,
-              "y": 270.7791748046875
-            }
-          ],
-          "manual": false
-        }
-      },
-      {
-        "entity": "User",
-        "identifying": false,
-        "optional": true,
-        "cardinality": 1,
-        "xor": null,
-        "name": null,
-        "transform": {
-          "anchor": {
-            "x": 107,
-            "y": 270.5083465576172,
-            "edge": 3
-          },
-          "points": [
-            {
-              "x": 57,
-              "y": 270.7791748046875
             }
           ],
           "manual": false
