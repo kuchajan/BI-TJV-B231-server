@@ -4,18 +4,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Reservation implements EntityWithId<Long>{
     @GeneratedValue
     @Id
     Long id;
+    @NotNull
     Long timeStart;
+    @NotNull
     Long timeEnd;
     @ManyToOne(optional = false)
     User reservationMaker;
     @ManyToOne(optional = false)
     Car carReserved;
+    @AssertTrue
+    Boolean validateDate() {
+        return timeStart < timeEnd;
+    }
 
     @Override
     public Long getId() {

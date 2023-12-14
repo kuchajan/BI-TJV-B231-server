@@ -1,6 +1,8 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Collection;
 
@@ -9,7 +11,9 @@ public class Make implements EntityWithId<Long>{
     @GeneratedValue
     @Id
     Long id;
+    @NotBlank(message = "Name of car is mandatory")
     String name;
+    @NotNull(message = "Base rent price is mandatory")
     Long baseRentPrice;
     @OneToMany
     Collection<Car> cars;

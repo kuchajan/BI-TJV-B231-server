@@ -1,6 +1,9 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Collection;
 
@@ -10,11 +13,26 @@ public class User implements EntityWithId<Long>{
     @GeneratedValue
     @Id
     Long id;
+    @Email
+    @NotBlank
     String email;
+    @NotBlank
     String name;
     String phoneNumber;
     @OneToMany
     Collection<Reservation> reservations;
+    @AssertTrue
+    Boolean validatePhone() {
+        if(phoneNumber == null) {
+            return true;
+        }
+        for (char ch : phoneNumber.toCharArray()) {
+            if(ch != ' ' && ch != '+' && (ch < '0' || ch > '9')) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public Long getId() {

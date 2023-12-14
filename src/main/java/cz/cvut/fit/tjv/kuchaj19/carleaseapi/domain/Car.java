@@ -1,6 +1,9 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Collection;
 
@@ -9,7 +12,9 @@ public class Car implements EntityWithId<Long>{
     @GeneratedValue
     @Id
     Long id;
+    @NotBlank
     String registrationPlate;
+    @NotNull
     Boolean forLease;
     @ManyToMany
     @JoinTable(
@@ -17,10 +22,11 @@ public class Car implements EntityWithId<Long>{
             joinColumns = @JoinColumn(name = "car_id"),
             inverseJoinColumns = @JoinColumn(name = "feature_id")
     )
-    Collection<Feature> features;
+    Collection<Feature> features; // todo: Fix recursion when serializing json
     @OneToMany
     Collection<Reservation> reservations;
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @NotNull
     Make make;
 
     @Override

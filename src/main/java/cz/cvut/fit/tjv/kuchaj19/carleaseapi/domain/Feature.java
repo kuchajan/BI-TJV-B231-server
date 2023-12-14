@@ -1,9 +1,9 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Collection;
 
@@ -12,7 +12,9 @@ public class Feature implements EntityWithId<Long>{
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank
     private String name;
+    @NotNull
     private Long priceIncrease;
     @ManyToMany(mappedBy = "features")
     private Collection<Car> featureOf;
