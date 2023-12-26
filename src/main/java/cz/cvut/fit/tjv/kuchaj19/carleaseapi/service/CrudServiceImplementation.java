@@ -1,7 +1,6 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.service;
 
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain.EntityWithId;
-import jdk.jshell.spi.ExecutionControl;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
@@ -10,7 +9,7 @@ public abstract class CrudServiceImplementation<T extends EntityWithId<ID>, ID> 
     protected abstract CrudRepository<T, ID> getRepository();
     @Override
     public T create(T e) {
-        if (getRepository().existsById(e.getId()))
+        if (e.getId() != null && getRepository().existsById(e.getId()))
             throw new IllegalArgumentException();
         return getRepository().save(e);
     }
@@ -38,6 +37,9 @@ public abstract class CrudServiceImplementation<T extends EntityWithId<ID>, ID> 
 
     @Override
     public void deleteById(ID id) {
+        if (!getRepository().existsById(id)) {
+            throw new IllegalArgumentException();
+        }
         getRepository().deleteById(id);
     }
 }
