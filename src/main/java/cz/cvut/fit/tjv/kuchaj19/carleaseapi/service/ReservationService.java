@@ -7,4 +7,5 @@ import java.util.Collection;
 public interface ReservationService extends CrudService<Reservation,Long> {
     Collection<Reservation> getAllByUser(Long userId);
     Collection<Reservation> getAllByCar(Long carId);
+    Collection<Reservation> getAllByTimeIntervalIntersect(Long timeStart, Long timeEnd);
 }
