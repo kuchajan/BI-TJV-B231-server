@@ -4,35 +4,25 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.Collection;
 
 @Entity
 @Table(name = "users")
 public class User implements EntityWithId<Long>{
-    @GeneratedValue
     @Id
+    @GeneratedValue
     Long id;
     @Email
     @NotBlank
     String email;
     @NotBlank
     String name;
+    @Pattern(regexp = "^[0-9]{9}$")
     String phoneNumber;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     Collection<Reservation> reservations;
-    @AssertTrue
-    Boolean validatePhone() {
-        if(phoneNumber == null) {
-            return true;
-        }
-        for (char ch : phoneNumber.toCharArray()) {
-            if(ch != ' ' && ch != '+' && (ch < '0' || ch > '9')) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     @Override
     public Long getId() {

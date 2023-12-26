@@ -1,6 +1,5 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +15,7 @@ public class Feature implements EntityWithId<Long>{
     private String name;
     @NotNull
     private Long priceIncrease;
-    @ManyToMany(mappedBy = "features")
+    @ManyToMany(mappedBy = "features", fetch = FetchType.LAZY)
     private Collection<Car> featureOf;
 
     @Override

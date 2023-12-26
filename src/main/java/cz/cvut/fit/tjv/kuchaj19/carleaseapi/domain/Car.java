@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,24 +10,23 @@ import java.util.Collection;
 
 @Entity
 public class Car implements EntityWithId<Long>{
-    @GeneratedValue
     @Id
+    @GeneratedValue
     Long id;
     @NotBlank
     String registrationPlate;
     @NotNull
     Boolean forLease;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "car_feature",
             joinColumns = @JoinColumn(name = "car_id"),
             inverseJoinColumns = @JoinColumn(name = "feature_id")
     )
     Collection<Feature> features; // todo: Fix recursion when serializing json
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     Collection<Reservation> reservations;
-    @ManyToOne
-    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     Make make;
 
     @Transient

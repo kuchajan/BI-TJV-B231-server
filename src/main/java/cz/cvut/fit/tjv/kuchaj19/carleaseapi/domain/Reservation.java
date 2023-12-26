@@ -1,29 +1,22 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Reservation implements EntityWithId<Long>{
-    @GeneratedValue
     @Id
+    @GeneratedValue
     Long id;
     @NotNull
     Long timeStart;
     @NotNull
     Long timeEnd;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     User reservationMaker;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     Car carReserved;
-    @AssertTrue
-    Boolean validateDate() {
-        return timeStart < timeEnd;
-	}
 
     public void update(EntityWithId<Long> updateWith) {
         if (updateWith.getClass() != this.getClass()) {

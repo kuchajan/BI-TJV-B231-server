@@ -8,14 +8,14 @@ import java.util.Collection;
 
 @Entity
 public class Make implements EntityWithId<Long>{
-    @GeneratedValue
     @Id
+    @GeneratedValue
     Long id;
     @NotBlank(message = "Name of car is mandatory")
     String name;
     @NotNull(message = "Base rent price is mandatory")
     Long baseRentPrice;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     Collection<Car> cars;
 
     public void update(EntityWithId<Long> updateWith) {
