@@ -27,10 +27,13 @@ public abstract class CrudServiceImplementation<T extends EntityWithId<ID>, ID> 
 
     @Override
     public void update(ID id, T e) {
-        if (!getRepository().existsById(id)) {
+        Optional<T> opt = getRepository().findById(id);
+        if (opt.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        getRepository().save(e);
+        T toUpdate = opt.get();
+        toUpdate.update(e);
+        getRepository().save(toUpdate);
     }
 
     @Override

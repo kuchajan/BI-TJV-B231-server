@@ -39,6 +39,17 @@ public class User implements EntityWithId<Long>{
         return id;
     }
 
+    @Override
+    public void update(EntityWithId<Long> updateWith) {
+        if (updateWith.getClass() != this.getClass()) {
+            throw new RuntimeException("Cannot update this entity with a different entity");
+        }
+        setEmail(((User)updateWith).getEmail());
+        setName(((User)updateWith).getName());
+        setPhoneNumber(((User)updateWith).getPhoneNumber());
+        setReservations(((User)updateWith).getReservations());
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

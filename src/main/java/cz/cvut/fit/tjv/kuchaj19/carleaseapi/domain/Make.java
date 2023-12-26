@@ -18,6 +18,15 @@ public class Make implements EntityWithId<Long>{
     @OneToMany
     Collection<Car> cars;
 
+    public void update(EntityWithId<Long> updateWith) {
+        if (updateWith.getClass() != this.getClass()) {
+            throw new RuntimeException("Cannot update this entity with a different entity");
+        }
+        setName(((Make)updateWith).getName());
+        setBaseRentPrice(((Make)updateWith).getBaseRentPrice());
+        setCars(((Make)updateWith).getCars());
+    }
+
     @Override
     public Long getId() {
         return id;

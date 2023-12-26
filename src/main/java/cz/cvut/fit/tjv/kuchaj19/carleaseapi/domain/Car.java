@@ -30,6 +30,18 @@ public class Car implements EntityWithId<Long>{
     Make make;
 
     @Override
+    public void update(EntityWithId<Long> updateWith) {
+        if(updateWith.getClass() != this.getClass()) {
+            throw new RuntimeException("Cannot update this entity with a different entity");
+        }
+        setRegistrationPlate(((Car) updateWith).getRegistrationPlate());
+        setForLease(((Car) updateWith).getForLease());
+        setFeatures(((Car) updateWith).getFeatures());
+        setReservations(((Car) updateWith).getReservations());
+        setMake(((Car) updateWith).getMake());
+    }
+
+    @Override
     public Long getId() {
         return id;
     }

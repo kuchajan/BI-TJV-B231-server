@@ -23,6 +23,16 @@ public class Reservation implements EntityWithId<Long>{
     @AssertTrue
     Boolean validateDate() {
         return timeStart < timeEnd;
+	}
+
+    public void update(EntityWithId<Long> updateWith) {
+        if (updateWith.getClass() != this.getClass()) {
+            throw new RuntimeException("Cannot update this entity with a different entity");
+        }
+        setTimeStart(((Reservation)updateWith).getTimeStart());
+        setTimeEnd(((Reservation)updateWith).getTimeEnd());
+        setReservationMaker(((Reservation)updateWith).getReservationMaker());
+        setCarReserved(((Reservation)updateWith).getCarReserved());
     }
 
     @Override

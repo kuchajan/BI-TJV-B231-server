@@ -19,6 +19,16 @@ public class Feature implements EntityWithId<Long>{
     @ManyToMany(mappedBy = "features")
     private Collection<Car> featureOf;
 
+    @Override
+    public void update(EntityWithId<Long> updateWith) {
+        if(updateWith.getClass() != this.getClass()) {
+            throw new RuntimeException("Cannot update this entity with a different entity");
+        }
+        setName(((Feature)updateWith).getName());
+        setPriceIncrease(((Feature)updateWith).getPriceIncrease());
+        setFeatureOf(((Feature)updateWith).getFeatureOf());
+    }
+
 
     @Override
     public Long getId() {
