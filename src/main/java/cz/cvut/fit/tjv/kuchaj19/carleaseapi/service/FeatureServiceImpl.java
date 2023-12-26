@@ -24,13 +24,4 @@ public class FeatureServiceImpl extends CrudServiceImplementation<Feature, Long>
     protected CrudRepository<Feature, Long> getRepository() {
         return featureRepository;
     }
-
-    @Override
-    public Collection<Feature> getAllByCar(Long carId) {
-        Optional<Car> car = carRepository.findById(carId);
-        if(car.isPresent()) {
-            return car.get().getFeatures();
-        }
-        throw new IllegalArgumentException(String.format("Car with id %d not found", carId));
-    }
 }
