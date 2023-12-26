@@ -5,6 +5,7 @@ import cz.cvut.fit.tjv.kuchaj19.carleaseapi.service.UserService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -24,10 +25,11 @@ public class UserController {
     }
     @PostMapping
     @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "User does not match specific criteria (some non-nullable property is null or does not exist if foreign key)"), // todo: check foreign keys
             @ApiResponse(responseCode = "409", description = "Duplicate id", content = @Content),
             @ApiResponse(responseCode = "200")
     })
-    public User create(@RequestBody User data) {
+    public User create(@Valid @RequestBody User data) {
         try {
             return userService.create(data);
         } catch (IllegalArgumentException e) {
@@ -95,7 +97,7 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "User with given ID was not found", content = @Content),
             @ApiResponse(responseCode = "204")
     })
-    public void update(@PathVariable Long id, @RequestBody User data) {
+    public void update(@PathVariable Long id, @Valid @RequestBody User data) {
         try {
             userService.update(id, data);
         } catch (IllegalArgumentException e) {
