@@ -29,6 +29,10 @@ public class Car implements EntityWithId<Long>{
     @NotNull
     Make make;
 
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    Long price;
+
     @Override
     public void update(EntityWithId<Long> updateWith) {
         if(updateWith.getClass() != this.getClass()) {
@@ -89,9 +93,11 @@ public class Car implements EntityWithId<Long>{
     public void setMake(Make make) {
         this.make = make;
     }
+    public void setPrice(Long price) {
+        this.price = price;
+    }
 
-    public double getPrice() {
-        return getMake().getBaseRentPrice() + getFeatures()
-                .stream().mapToLong(Feature::getPriceIncrease).reduce(0, Long::sum);
+    public Long getPrice() {
+        return price;
     }
 }
