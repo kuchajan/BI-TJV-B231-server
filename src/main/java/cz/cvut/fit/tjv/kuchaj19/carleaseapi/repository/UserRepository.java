@@ -8,8 +8,7 @@ import java.util.Collection;
 
 @Repository
 public interface UserRepository extends CrudRepository<User,Long> {
-    // by attributes
-    Collection<User> findByEmail(String email); // todo: test that it returns a collection of 1 or 0 users
+    Collection<User> findByEmail(String email);
     Collection<User> findByName(String name);
     Collection<User> findByPhoneNumber(String phoneNumber);
 }
