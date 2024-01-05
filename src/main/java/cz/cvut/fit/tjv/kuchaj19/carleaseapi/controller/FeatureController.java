@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,19 @@ public class FeatureController {
 
     @GetMapping
     @ApiResponses({
-           @ApiResponse(responseCode = "200")
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", description = "Bad filters"),
+            @ApiResponse(responseCode = "404", description = "Car with given ID not found")
     })
-    public Collection<Feature> getAll() {
+    public Collection<Feature> getAllOrFiltered(@RequestParam Optional<Long> carId, @RequestParam Optional<Boolean> inverse) {
+        if(carId.isPresent()) {
+            try {
+                return featureService.readByCarId(carId.get(), inverse.orElse(false));
+            }
+            catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            }
+        }
         return (Collection<Feature>)featureService.readAll();
     }
 
@@ -82,6 +93,8 @@ public class FeatureController {
             featureService.deleteById(id);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
     }
 }

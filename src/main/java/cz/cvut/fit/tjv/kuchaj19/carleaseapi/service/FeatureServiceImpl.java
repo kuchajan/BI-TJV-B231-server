@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FeatureServiceImpl extends CrudServiceImplementation<Feature, Long> implements FeatureService{
@@ -23,5 +24,18 @@ public class FeatureServiceImpl extends CrudServiceImplementation<Feature, Long>
     @Override
     protected CrudRepository<Feature, Long> getRepository() {
         return featureRepository;
+    }
+
+    @Override
+    public Collection<Feature> readByCarId(Long carId, Boolean inverse) {
+        if(!carRepository.existsById(carId)) {
+            throw new IllegalArgumentException();
+        }
+        if(!inverse){
+            return featureRepository.findByFeatureOfId(carId);
+        }
+        Collection<Feature> all = (Collection<Feature>) featureRepository.findAll();
+        all.removeAll(featureRepository.findByFeatureOfId(carId));
+        return all;
     }
 }

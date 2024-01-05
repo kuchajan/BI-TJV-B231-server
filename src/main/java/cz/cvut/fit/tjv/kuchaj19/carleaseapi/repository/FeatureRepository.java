@@ -11,5 +11,5 @@ import java.util.Collection;
 
 @Repository
 public interface FeatureRepository extends CrudRepository<Feature, Long> {
-    //
+    Collection<Feature> findByFeatureOfId(Long carId);
 }
