@@ -1,6 +1,5 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.controller;
 
-import cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain.Car;
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain.Reservation;
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.service.*;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -8,9 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -44,24 +41,18 @@ public class ReservationController {
 
     @GetMapping
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Some parameter resulted in empty set"),
+            @ApiResponse(responseCode = "404", description = "Wrong search parameters"),
             @ApiResponse(responseCode = "200")
     })
     public Collection<Reservation> getAllOrFilter(@RequestParam Optional<Long> user, @RequestParam Optional<Long> car) {
-        Collection<Reservation> res = (Collection<Reservation>) reservationService.readAll();
-        if(user.isPresent()) {
-            res.retainAll(reservationService.getAllByUser(user.get()));
-            if(res.isEmpty()) {
+        if (user.isPresent() || car.isPresent()) {
+            try {
+                return reservationService.getFiltered(user,car);
+            } catch (IllegalArgumentException e) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             }
         }
-        if(car.isPresent()) {
-            res.retainAll(reservationService.getAllByCar(car.get()));
-            if(res.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
-        }
-        return res;
+        return (Collection<Reservation>) reservationService.readAll();
     }
 
     @GetMapping("/{id}")

@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +19,11 @@ public class Reservation implements EntityWithId<Long>{
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     Car carReserved;
 
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    Long price;
+
+
     public void update(EntityWithId<Long> updateWith) {
         if (updateWith.getClass() != this.getClass()) {
             throw new RuntimeException("Cannot update this entity with a different entity");
@@ -26,6 +32,7 @@ public class Reservation implements EntityWithId<Long>{
         setTimeEnd(((Reservation)updateWith).getTimeEnd());
         setReservationMaker(((Reservation)updateWith).getReservationMaker());
         setCarReserved(((Reservation)updateWith).getCarReserved());
+        setPrice(((Reservation)updateWith).getPrice());
     }
 
     @Override
@@ -67,5 +74,11 @@ public class Reservation implements EntityWithId<Long>{
 
     public void setCarReserved(Car carReserved) {
         this.carReserved = carReserved;
+    }
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+    public Long getPrice() {
+        return price;
     }
 }
