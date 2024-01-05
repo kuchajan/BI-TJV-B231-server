@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
@@ -25,8 +26,8 @@ public class UserController {
     }
     @PostMapping
     @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "User does not match specific criteria (some non-nullable property is null or does not exist if foreign key)"), // todo: check foreign keys
-            @ApiResponse(responseCode = "409", description = "Duplicate id", content = @Content),
+            @ApiResponse(responseCode = "400", description = "User does not match specific criteria (some non-nullable property is null or does not exist if foreign key)"),
+            @ApiResponse(responseCode = "409", description = "Duplicate id"),
             @ApiResponse(responseCode = "200")
     })
     public User create(@Valid @RequestBody User data) {
@@ -39,43 +40,13 @@ public class UserController {
 
     @GetMapping
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Filtered collection is empty, but there exists at least one user", content = @Content),
             @ApiResponse(responseCode = "200")
     })
-    public Collection<User> getAllOrFiltered(@RequestParam Optional<String> email, @RequestParam Optional<String> name, @RequestParam Optional<String> phone, @RequestParam Optional<Long> car) {
-        Collection<User> all = (Collection<User>) userService.readAll();
-        if(email.isPresent()) {
-            try {
-                all.retainAll(userService.findByEmail(email.get()));
-            } catch (IllegalArgumentException e) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
+    public Collection<User> getAllOrFiltered(@RequestParam Optional<String> email, @RequestParam Optional<String> name, @RequestParam Optional<String> phone) {
+        if(email.isPresent() || name.isPresent() || phone.isPresent()) {
+            return userService.getFiltered(email, name, phone);
         }
-        if(name.isPresent()) {
-            try {
-                all.retainAll(userService.findByName(name.get()));
-            } catch (IllegalArgumentException e) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
-        }
-        if(phone.isPresent()) {
-            try {
-                all.retainAll(userService.findByPhoneNumber(phone.get()));
-            } catch (IllegalArgumentException e) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
-        }
-        if(car.isPresent()) {
-            try {
-                all.retainAll(userService.readAllByReservedCar(car.get()));
-            } catch (IllegalArgumentException e) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            }
-        }
-        if(all.isEmpty() && !((Collection<User>) userService.readAll()).isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-        return all;
+        return (Collection<User>) userService.readAll();
     }
 
     @GetMapping("/{id}")
@@ -116,6 +87,8 @@ public class UserController {
             userService.deleteById(id);
         } catch (IllegalArgumentException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        } catch (DataIntegrityViolationException e) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
     }
 }
