@@ -3,7 +3,9 @@ package cz.cvut.fit.tjv.kuchaj19.carleaseapi.service;
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain.*;
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.repository.*;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -29,9 +31,13 @@ public class CarServiceImpl extends CrudServiceImplementation<Car, Long> impleme
         if(make.isEmpty()) {
             throw new RuntimeException();
         }
-        car.setPrice(
-                ((Collection<Feature>) featureRepository.findAllById(car.getFeatures().stream().map(Feature::getId).toList()))
-                        .stream().mapToLong(Feature::getPriceIncrease).reduce(make.get().getBaseRentPrice(), Long::sum));
+        Collection<Feature> features = (Collection<Feature>)featureRepository.findAllById(car.getFeatures().stream().map(Feature::getId).collect(Collectors.toSet()));
+        if(!features.isEmpty()) {
+            car.setPrice(features.stream().mapToLong(Feature::getPriceIncrease).reduce(make.get().getBaseRentPrice(), Long::sum));
+        }
+        else {
+            car.setPrice(make.get().getBaseRentPrice());
+        }
         return car;
     }
 
@@ -63,7 +69,7 @@ public class CarServiceImpl extends CrudServiceImplementation<Car, Long> impleme
 
 
     @Override
-    public Collection<Car> readAllWithFilters(Collection<Long> makeIds, Collection<Long> featureIds, Long minPrice, Long maxPrice, Boolean availability, Long timeStart, Long timeEnd) {
+    public Collection<Car> readAllWithFilters(Collection<Long> makeIds, Collection<Long> featureIds, Long minPrice, Long maxPrice, Optional<Long> timeStart, Optional<Long> timeEnd) {
         // All the cars
         Collection<Car> result = (Collection<Car>) carRepository.findAll();
 
@@ -82,9 +88,17 @@ public class CarServiceImpl extends CrudServiceImplementation<Car, Long> impleme
             }
         }
 
+        if(timeStart.isPresent() && timeEnd.isEmpty() || timeStart.isEmpty() && timeEnd.isPresent()) {
+            throw new IllegalArgumentException();
+        }
         // filter out unavailable cars if applicable
-        if (availability) {
-            result.retainAll(carRepository.findAvailable(timeStart, timeEnd));
+        if (timeStart.isPresent()) {
+            if(timeStart.get() >= timeEnd.get()) {
+                throw new IllegalIntervalException();
+            }
+            System.out.println("Begin finding available cars");
+            result.retainAll(carRepository.findAvailable(timeStart.get(), timeEnd.get()));
+            System.out.println("End finding available cars");
         }
 
         // filter out cars with higher or lower price
@@ -92,19 +106,5 @@ public class CarServiceImpl extends CrudServiceImplementation<Car, Long> impleme
         result.removeIf((x) -> x.getPrice() < minPrice || x.getPrice() > maxPrice);
 
         return result;
-    }
-
-    @Override
-    public Collection<Car> readAllByUserReserving(Long userId) { // why?
-        return updatePrices(reservationRepository.findByReservationMakerId(userId).stream().map(Reservation::getCarReserved).collect(Collectors.toSet()));
-    }
-
-    @Override
-    public Collection<Car> readByRegistrationPlate(String registrationPlate) {
-        return updatePrices(carRepository.findByRegistrationPlate(registrationPlate));
-    }
-    @Override
-    public Collection<Car> findAvailable(Long timeStart, Long timeEnd) {
-        return updatePrices(carRepository.findAvailable(timeStart, timeEnd));
     }
 }

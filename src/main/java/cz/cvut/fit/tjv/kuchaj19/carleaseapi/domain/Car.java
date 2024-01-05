@@ -1,6 +1,7 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,24 +10,28 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
+@Table(
+        uniqueConstraints = @UniqueConstraint(columnNames = "registration_plate")
+)
 public class Car implements EntityWithId<Long>{
     @Id
     @GeneratedValue
     Long id;
+    @Column(name = "registration_plate")
     @NotBlank
     String registrationPlate;
-    @NotNull
-    Boolean forLease;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "car_feature",
             joinColumns = @JoinColumn(name = "car_id"),
             inverseJoinColumns = @JoinColumn(name = "feature_id")
     )
-    Collection<Feature> features; // todo: Fix recursion when serializing json
+    @JsonIgnoreProperties("featureOf")
+    Collection<Feature> features;
     @OneToMany(fetch = FetchType.LAZY)
     Collection<Reservation> reservations;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JsonIgnoreProperties("cars")
     Make make;
 
     @Transient
@@ -39,7 +44,6 @@ public class Car implements EntityWithId<Long>{
             throw new RuntimeException("Cannot update this entity with a different entity");
         }
         setRegistrationPlate(((Car) updateWith).getRegistrationPlate());
-        setForLease(((Car) updateWith).getForLease());
         setFeatures(((Car) updateWith).getFeatures());
         setReservations(((Car) updateWith).getReservations());
         setMake(((Car) updateWith).getMake());
@@ -60,14 +64,6 @@ public class Car implements EntityWithId<Long>{
 
     public void setRegistrationPlate(String registrationPlate) {
         this.registrationPlate = registrationPlate;
-    }
-
-    public Boolean getForLease() {
-        return forLease;
-    }
-
-    public void setForLease(Boolean forSale) {
-        this.forLease = forSale;
     }
 
     public Collection<Feature> getFeatures() {
