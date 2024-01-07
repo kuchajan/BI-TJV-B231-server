@@ -15,15 +15,13 @@ import java.util.stream.Collectors;
 @Service
 public class CarServiceImpl extends CrudServiceImplementation<Car, Long> implements CarService {
     private final CarRepository carRepository;
-    private final ReservationRepository reservationRepository;
     private final FeatureRepository featureRepository;
     private final MakeRepository makeRepository;
 
-    public CarServiceImpl(CarRepository carRepository, ReservationRepository reservationRepository, FeatureRepository featureRepository, MakeRepository makeRepository) {
+    public CarServiceImpl(CarRepository carRepository, FeatureRepository featureRepository, MakeRepository makeRepository) {
         this.carRepository = carRepository;
         this.featureRepository = featureRepository;
         this.makeRepository = makeRepository;
-        this.reservationRepository = reservationRepository;
     }
 
     private Car updatePrice(Car car) {
@@ -31,7 +29,7 @@ public class CarServiceImpl extends CrudServiceImplementation<Car, Long> impleme
         if(make.isEmpty()) {
             throw new RuntimeException();
         }
-        Collection<Feature> features = (Collection<Feature>)featureRepository.findAllById(car.getFeatures().stream().map(Feature::getId).collect(Collectors.toSet()));
+        Collection<Feature> features = featureRepository.findByFeatureOfId(car.getId());
         if(!features.isEmpty()) {
             car.setPrice(features.stream().mapToLong(Feature::getPriceIncrease).reduce(make.get().getBaseRentPrice(), Long::sum));
         }
@@ -96,9 +94,7 @@ public class CarServiceImpl extends CrudServiceImplementation<Car, Long> impleme
             if(timeStart.get() >= timeEnd.get()) {
                 throw new IllegalIntervalException();
             }
-            System.out.println("Begin finding available cars");
             result.retainAll(carRepository.findAvailable(timeStart.get(), timeEnd.get()));
-            System.out.println("End finding available cars");
         }
 
         // filter out cars with higher or lower price

@@ -33,7 +33,7 @@ public class ReservationServiceImpl extends CrudServiceImplementation<Reservatio
         if(make.isEmpty()) {
             throw new RuntimeException();
         }
-        Collection<Feature> features = (Collection<Feature>)featureRepository.findAllById(car.getFeatures().stream().map(Feature::getId).collect(Collectors.toSet()));
+        Collection<Feature> features = featureRepository.findByFeatureOfId(car.getId());
         if(!features.isEmpty()) {
             car.setPrice(features.stream().mapToLong(Feature::getPriceIncrease).reduce(make.get().getBaseRentPrice(), Long::sum));
         }
@@ -79,6 +79,7 @@ public class ReservationServiceImpl extends CrudServiceImplementation<Reservatio
             if(!userRepository.existsById(userId.get())) {
                 throw new IllegalArgumentException();
             }
+            Collection<Reservation> what = reservationRepository.findByReservationMakerId(userId.get());
             all.retainAll(reservationRepository.findByReservationMakerId(userId.get()));
         }
         if(carId.isPresent()) {
@@ -87,7 +88,7 @@ public class ReservationServiceImpl extends CrudServiceImplementation<Reservatio
             }
             all.retainAll(reservationRepository.findByCarReservedId(carId.get()));
         }
-        return all;
+        return updateReservationPrices(all);
     }
 
     @Override
@@ -100,11 +101,8 @@ public class ReservationServiceImpl extends CrudServiceImplementation<Reservatio
             // start of reservation should be before the end - bad request
             throw new IllegalIntervalException();
         }
-        Optional<Car> reserved = carRepository.findById(reservation.getCarReserved().getId());
-        if(reserved.isEmpty()) {
-            throw new RuntimeException("Validation failed"); //server error
-        }
-        if(!carRepository.findAvailable(reservation.getTimeStart(), reservation.getTimeEnd()).contains(reserved.get())) {
+
+        if(carRepository.findAvailable(reservation.getTimeStart(), reservation.getTimeEnd()).stream().mapToLong(Car::getId).noneMatch(x -> reservation.getCarReserved().getId().equals(x))) {
             // car is not available - conflict
             throw new IntervalCollisionException();
         }
