@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.kuchaj19.carleaseapi.controller;
 
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain.Make;
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.service.MakeService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -25,6 +26,7 @@ public class MakeController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a make", description = "Attempts to create a make, failing if data is invalid or a duplicate id was given")
     @ApiResponses({
             @ApiResponse(responseCode = "400", description = "Property violation"),
             @ApiResponse(responseCode = "409", description = "Duplicate id", content = @Content),
@@ -39,6 +41,7 @@ public class MakeController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all makes", description = "Gets all the makes")
     @ApiResponses({
             @ApiResponse(responseCode = "200")
     })
@@ -47,6 +50,7 @@ public class MakeController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a specific make", description = "Gets a specific make, failing if given ID is invalid")
     @ApiResponses({
             @ApiResponse(responseCode = "404", description = "Make with given ID was not found", content = @Content),
             @ApiResponse(responseCode = "200")
@@ -60,8 +64,10 @@ public class MakeController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Edit a make", description = "Attempts to edit a make, failing if given data is invalid or id not found")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "Invalid data", content = @Content),
             @ApiResponse(responseCode = "404", description = "Make with given ID was not found", content = @Content),
             @ApiResponse(responseCode = "204")
     })
@@ -74,9 +80,11 @@ public class MakeController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a make", description = "Attempts to delete a make, failing if it is used by a car or id not found")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses({
             @ApiResponse(responseCode = "404", description = "Make with given ID was not found", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Make is used by a car", content = @Content),
             @ApiResponse(responseCode = "204")
     })
     public void delete(@PathVariable Long id) {

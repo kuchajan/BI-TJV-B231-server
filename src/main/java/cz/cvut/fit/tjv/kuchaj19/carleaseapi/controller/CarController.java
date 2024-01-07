@@ -93,9 +93,9 @@ public class CarController {
     @Operation(summary = "Delete a car", description = "Attempts to delete a car, failing if any reservations are dependent on the car, or given ID id not found")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Car with given ID was not found"),
-            @ApiResponse(responseCode = "403", description = "Cannot delete car, as it's a part of a reservation"),
-            @ApiResponse(responseCode = "204")
+            @ApiResponse(responseCode = "404", description = "Car with given ID was not found", content = @Content),
+            @ApiResponse(responseCode = "403", description = "Cannot delete car, as it's a part of a reservation", content = @Content),
+            @ApiResponse(responseCode = "204", content = @Content)
     })
     public void delete(@PathVariable Long id) {
         try {

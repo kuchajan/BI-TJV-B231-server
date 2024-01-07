@@ -2,6 +2,7 @@ package cz.cvut.fit.tjv.kuchaj19.carleaseapi.controller;
 
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain.Reservation;
 import cz.cvut.fit.tjv.kuchaj19.carleaseapi.service.*;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -24,9 +25,10 @@ public class ReservationController {
     }
 
     @PostMapping
+    @Operation(summary = "Creates a reservation", description = "Attempts to create a reservation, failing if there's a conflict with another reservation, provided data is invalid, or given ID is duplicate")
     @ApiResponses({
-            @ApiResponse(responseCode = "400", description = "Wrong parameters"),
-            @ApiResponse(responseCode = "409", description = "Given ID already exists or there is a conflict with another reservation"),
+            @ApiResponse(responseCode = "400", description = "Wrong parameters", content = @Content),
+            @ApiResponse(responseCode = "409", description = "Given ID already exists or there is a conflict with another reservation", content = @Content),
             @ApiResponse(responseCode = "200")
     })
     public Reservation create(@Valid @RequestBody Reservation data) {
@@ -40,8 +42,9 @@ public class ReservationController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all or filtered reservations", description = "Gets all the reservation, or, if requested, reservations from a user and/or of a car")
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Wrong search parameters"),
+            @ApiResponse(responseCode = "404", description = "Wrong search parameters", content = @Content),
             @ApiResponse(responseCode = "200")
     })
     public Collection<Reservation> getAllOrFilter(@RequestParam Optional<Long> user, @RequestParam Optional<Long> car) {
@@ -56,8 +59,9 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a reservation", description = "Attempts to get a specific reservation, failing if given ID was not found")
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Reservation with given ID was not found"),
+            @ApiResponse(responseCode = "404", description = "Reservation with given ID was not found", content = @Content),
             @ApiResponse(responseCode = "200")
     })
     public Reservation getById(@PathVariable Long id) {
@@ -69,10 +73,12 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Edit a reservation", description = "Attempts to edit a reservation with a given ID with given data, failing if data is invalid, id not found, or there's a conflict with other reservations")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "Invalid data", content = @Content),
             @ApiResponse(responseCode = "404", description = "Reservation with given ID was not found", content = @Content),
-            @ApiResponse(responseCode = "409", description = "Given time frame would conflict with another reservation"),
+            @ApiResponse(responseCode = "409", description = "Given time frame would conflict with another reservation", content = @Content),
             @ApiResponse(responseCode = "204")
     })
     public void update(@PathVariable Long id, @Valid @RequestBody Reservation data) {
@@ -88,8 +94,9 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a reservation", description = "Attempts to delete a reservation, failing if ID is not found")
     @ApiResponses({
-            @ApiResponse(responseCode = "404", description = "Reservation with given ID was not found"),
+            @ApiResponse(responseCode = "404", description = "Reservation with given ID was not found", content = @Content),
             @ApiResponse(responseCode = "204")
     })
     public void delete(@PathVariable Long id) {
