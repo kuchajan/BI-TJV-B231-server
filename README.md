@@ -11,6 +11,7 @@ Vše, kromě prvního kontrolního bodu, je vypracováno v angličtině.
 Ke spuštění jsou potřeba nástroje:
  - Docker-compose
  - Java verze 17
+ - Gradle
 
 Abyste spustili db server, navigujte do adresáře serverového repoziráře a spusťte příkaz:
 ```
