@@ -1,6 +1,6 @@
 ## Business operace klienta
 
-Klient se zeptá serveru, zda je v daném intervalu dostupné auto, a pokud dostupné je, přidá se nová rezervace tohoto auta s daným intervalem.
+Klient se pokusí o vytvoření rezervace daného auta v nějakém intervalu, což server provede, pouze pokud auto je v daným intervalu dostupné.
 
 ## Datový model
 
