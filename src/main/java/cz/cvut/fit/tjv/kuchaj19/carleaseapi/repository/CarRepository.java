@@ -14,6 +14,6 @@ import java.util.Collection;
 public interface CarRepository extends CrudRepository<Car,Long> {
     Collection<Car> findByMakeId(Long makeId);
     Collection<Car> findByFeaturesId(Long featureId);
-    @Query(value = "SELECT c FROM Car c WHERE NOT EXISTS (SELECT r FROM Reservation r WHERE r.carReserved.id = c.id AND ((:timeStart BETWEEN r.timeStart AND r.timeEnd) OR (:timeEnd BETWEEN r.timeStart AND r.timeEnd)))")
+    @Query(value = "SELECT c FROM Car c WHERE NOT EXISTS (SELECT r FROM Reservation r WHERE r.carReserved.id = c.id AND ((:timeStart BETWEEN r.timeStart AND r.timeEnd) OR (:timeEnd BETWEEN r.timeStart AND r.timeEnd) OR (r.timeStart BETWEEN :timeStart AND :timeEnd) OR (r.timeEnd BETWEEN :timeStart AND :timeEnd)))")
     Collection<Car> findAvailable(Long timeStart, Long timeEnd);
 }
