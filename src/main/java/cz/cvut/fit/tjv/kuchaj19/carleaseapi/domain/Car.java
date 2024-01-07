@@ -29,6 +29,7 @@ public class Car implements EntityWithId<Long>{
     @JsonIgnoreProperties("featureOf")
     Collection<Feature> features;
     @OneToMany(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("carReserved")
     Collection<Reservation> reservations;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JsonIgnoreProperties("cars")

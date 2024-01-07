@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
@@ -15,8 +16,10 @@ public class Reservation implements EntityWithId<Long>{
     @NotNull
     Long timeEnd;
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("reservations")
     User reservationMaker;
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("reservations")
     Car carReserved;
 
     @Transient

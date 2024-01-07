@@ -1,5 +1,6 @@
 package cz.cvut.fit.tjv.kuchaj19.carleaseapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
