@@ -1,3 +1,14 @@
+# BI-TJV-B231-server
+
+This is a repository for the server part of a semestral project for the course named Java Technology at FIT CTU. It is a REST API server using Spring Framework for a made up car lease company. The client application can be found [here](https://github.com/kuchajan/BI-TJV-B231-client).
+
+There is a bug that I did not have enough time back then to solve, where after inserting test data through an insert script, the primary keys in the application would not synchronize with PKs in the database. The bodge-style solve is to run `fixPK.sh`, which POSTs to the api just enough data to synchronize the keys.
+
+At development, I was still learning what docker compose is, so currently, it only starts a postgres database.
+
+Below is the original README content in czech:
+
+
 # Půjčovna aut: Semestrální práce z BI-TJV v semestru B231 - serverová část
 
 Toto je repozitář pro serverovou část semestrální práce. Pokud hledáte klientskou část, je [zde](https://gitlab.fit.cvut.cz/kuchaj19/bi-tjv-b231-semestral-client).
